@@ -11,7 +11,7 @@ class GUI:
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Sudoku")
-        self.window = pygame.display.set_mode((450, 500))
+        self.window = pygame.display.set_mode((450, 550))
         self.window.fill(WHITE)
 
     def draw_empty_grid(self) -> None:
@@ -31,6 +31,8 @@ class GUI:
         self.window.blit(text, (5, 455))
         text = sysfont.render("Press s to solve", True, BLACK)
         self.window.blit(text, (5, 475))
+        text = sysfont.render("Press w to wipe the grid", True, BLACK)
+        self.window.blit(text, (5, 495))
 
     def fill_grid_with_number(self, grid):
         sysfont = pygame.font.SysFont("Helvetica", 35)

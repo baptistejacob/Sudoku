@@ -21,6 +21,11 @@ class Game:
         ]
         self.gui = GUI()
 
+    def reset_grid(self):
+        for x in range(9):
+            for y in range(9):
+                self.grid[x][y] = 0
+
     def loop(self) -> None:
         while True:
             self.gui.draw_grid(self.grid)
@@ -33,3 +38,5 @@ class Game:
                         sys.exit()
                     if event.key == pygame.K_s:
                         solve(self.grid)
+                    if event.key == pygame.K_w:
+                        self.reset_grid()
