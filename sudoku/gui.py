@@ -2,6 +2,7 @@ import pygame
 
 # Hexadecimal color for drawing
 WHITE = (255, 255, 255)
+BLUE_GRAY = (115, 147, 179)
 BLACK = (0, 0, 0)
 
 
@@ -25,6 +26,17 @@ class GUI:
             pygame.draw.line(self.window, BLACK, (i, 0), (i, 450))
             pygame.draw.line(self.window, BLACK, (0, i), (450, i))
 
+    def highlight_cell(self, x, y) -> None:
+        pygame.draw.rect(
+            self.window, BLUE_GRAY, pygame.Rect((x * 50) + 1, (y * 50) + 1, 48, 48), 4
+        )
+        pygame.display.update()
+
+    def display_message(self, message):
+        sysfont = pygame.font.SysFont("Helvetica", 20)
+        text = sysfont.render(message, True, BLACK)
+        self.window.blit(text, (5, 515))
+
     def draw_grid_footer(self) -> None:
         sysfont = pygame.font.SysFont("Helvetica", 20)
         text = sysfont.render("Press q to quit", True, BLACK)
@@ -43,8 +55,11 @@ class GUI:
                 text = sysfont.render(str(grid[x][y]), True, BLACK)
                 self.window.blit(text, (16 + (50 * x), 12 + (50 * y)))
 
-    def draw_grid(self, grid) -> None:
+    def draw_grid(self, grid, cursor_coord, message) -> None:
         self.draw_empty_grid()
         self.draw_grid_footer()
+        self.display_message(message)
         self.fill_grid_with_number(grid)
+        if cursor_coord:
+            self.highlight_cell(cursor_coord[0], cursor_coord[1])
         pygame.display.update()
